@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ethan LLM Works</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+    line-height: 1.7;
+}
+
+/* Hero */
+.hero {
+    background: linear-gradient(135deg, #2563eb, #4f46e5);
+    padding: 90px 20px;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 56px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+}
+
+.hero p {
+    max-width: 750px;
+    margin: 0 auto;
+    font-size: 18px;
+    opacity: 0.95;
+}
+
+/* Container */
+.container {
+    max-width: 1000px;
+    margin: 70px auto;
+    padding: 0 20px;
+}
+
+/* About Section */
+.about-section {
+    margin-bottom: 80px;
+}
+
+.about-section h2 {
+    text-align: center;
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 35px;
+    color: #60a5fa;
+}
+
+.about-section p {
+    margin-bottom: 22px;
+    font-size: 16px;
+    color: #cbd5e1;
+}
+
+/* Projects */
+.section-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 40px;
+    color: #60a5fa;
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+.project-card {
+    background: #1e293b;
+    border-radius: 14px;
+    padding: 28px;
+    transition: all 0.25s ease;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.project-card:hover {
+    transform: translateY(-6px);
+    border: 1px solid #60a5fa;
+    box-shadow: 0 10px 25px rgba(96,165,250,0.2);
+}
+
+.project-card h3 {
+    margin-bottom: 12px;
+    font-weight: 600;
+    font-size: 18px;
+    color: #f1f5f9;
+}
+
+.project-card p {
+    font-size: 15px;
+    color: #cbd5e1;
+    margin-bottom: 18px;
+}
+
+.project-card a {
+    text-decoration: none;
+    color: #0f172a;
+    background: #60a5fa;
+    padding: 9px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.project-card a:hover {
+    background: #3b82f6;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 14px;
+    color: #94a3b8;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    margin-top: 80px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="hero">
+    <h1>Ethan LLM Works</h1>
+    <p>
+        A curated portfolio of AI-powered systems, prompt-engineered applications, 
+        and large language model experiments focused on structured reasoning, 
+        automation workflows, and intelligent web development.
+    </p>
+</div>
+
+<div class="container">
+
+    <!-- ABOUT SECTION -->
+    <div class="about-section">
+        <h2>About</h2>
+
+        <p>
+            <strong>Ethan LLM Works</strong> is a self-directed portfolio project that involves taking my original 
+            programs and transforming them into interactive simulations and computational tools using advanced techniques 
+            in prompt engineering. Every project starts with logic that I develop using Python, 
+            Java, or C++, and evolves into a full-fledged html web application through AI-assisted pipelines.
+        </p>
+
+        <p>
+            These projects serve as more than visual redesigns, but are a testament to my abilities in bridging conventional 
+            software development with the latest AI innovation. Although the underlying code and algorithms are
+            mine, the web interfaces have been developed through purposeful experimentation with large language models. What I aim to achieve 
+            through this initiative is not the authorship of these websites but to showcase the application of my AI 
+            engineering skills in terms of crafting prompts and refining interfaces.
+        </p>
+
+        <p>
+            This platform is a part of an independent study into the development of LLM products, prototyping, and 
+            computational designs. It is to be taken as a way of learning about AI designs in intuitive and 
+            engaging mannerisms. Through these projects, I hope to learn more about how human-designed logic and machine-assisted generation 
+            can be combined in creating function-oriented digital systems.        
+        </p>
+    </div>
+
+    <!-- PROJECTS -->
+    <div class="section-title">
+        Featured Projects
+    </div>
+
+    <div class="project-grid">
+
+        <div class="project-card">
+            <h3>Wordlytics</h3>
+            <p>Word Frequency Counter</p>
+            <p>
+                Reads .txt files, cleans and processes text, and uses dictionaries to calculate and output sorted word frequencies for basic text analysis.            </p>
+            <a href="https://etceo.github.io/.wRdLtcs/" target="_blank">View Project</a>
+        </div>
+
+        <div class="project-card">
+            <h3>Stat Integra</h3>
+            <p>Integer Statistics Calculator</p>
+            <p>
+                Accepts a sequence of positive integers and computes key statistical measures, including algorithmic sorting, mean, and standard deviation.            </p>
+            <a href="https://etceo.github.io/.stAtIntgra/" target="_blank">View Project</a>
+        </div>
+
+        <div class="project-card">
+            <h3>Second Sync</h3>
+            <p>Seconds To Time Converter</p>
+            <p>
+                Converts a user-provided number of seconds into hours, minutes, and seconds using integer division and modulo operations.            </p>
+            <a href="https://etceo.github.io/.sCndSnc/" target="_blank">View Project</a>
+        </div>
+
+        <div class="project-card">
+            <h3>Squeal Speak</h3>
+            <p>Pig Latin Translator</p>
+            <p>
+                Translates words, names, and full sentences into Pig Latin while preserving original capitalization and punctuation.            </p>
+            <a href="https://etceo.github.io/.sQlsPk/" target="_blank">View Project</a>
+        </div>
+
+        <div class="project-card">
+            <h3>Helix Pair</h3>
+            <p>DNA Complement Calculator</p>
+            <p>
+                Calculates the complement and reverse complement of DNA sequences using standard base-pairing rules, bioinformatics logic, and string manipulation.            </p>
+            <a href="https://etceo.github.io/.hLxpR/" target="_blank">View Project</a>
+        </div>
+
+        <div class="project-card">
+            <h3>TempSwitch</h3>
+            <p>Celcius To Fahrenheit Converter</p>
+            <p>
+                Converts temperatures from Celsius to Fahrenheit using the standard formula and practical scripting for scientific calculations.            </p>
+            <a href="https://etceo.github.io/.tMpSwtcH/" target="_blank">View Project</a>
+        </div>
+        
+    </div>
+
+</div>
+
+<footer>
+    © 2026 Ethan Lopez | LLM Systems Portfolio
+</footer>
+
+</body>
+</html>
