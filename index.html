@@ -2,243 +2,1113 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Ethan LLM Works</title>
+<title>Ethan LLM Works — AI Systems Portfolio</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
+<meta name="description" content="A curated portfolio of AI-powered systems, prompt-engineered applications, and large language model experiments.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* ─── RESET & BASE ─────────────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --void:       #070B12;
+  --surface:    #0C1220;
+  --raised:     #111827;
+  --elevated:   #162035;
+  --border:     rgba(255,255,255,0.07);
+  --border-hi:  rgba(45,212,191,0.35);
+  --teal:       #2DD4BF;
+  --teal-dim:   #1BA89A;
+  --teal-glow:  rgba(45,212,191,0.12);
+  --teal-faint: rgba(45,212,191,0.06);
+  --text:       #E2EAF4;
+  --text-mid:   #8A9BBE;
+  --text-dim:   #4A5A78;
+  --mono:       'JetBrains Mono', monospace;
+  --sans:       'Space Grotesk', sans-serif;
+  --body:       'Inter', sans-serif;
+  --radius-sm:  6px;
+  --radius-md:  10px;
+  --radius-lg:  16px;
+  --transition: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+html { scroll-behavior: smooth; }
 
 body {
-    font-family: 'Inter', sans-serif;
-    background: #0f172a;
-    color: #e2e8f0;
-    line-height: 1.7;
+  font-family: var(--body);
+  background: var(--void);
+  color: var(--text);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Hero */
+/* ─── CANVAS BACKGROUND ────────────────────────────────────── */
+#lattice-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.45;
+}
+
+/* ─── NAV ───────────────────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 0 40px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(7,11,18,0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-mid);
+  text-decoration: none;
+  letter-spacing: 0.03em;
+  transition: color var(--transition);
+}
+
+.nav-links a:hover { color: var(--text); }
+
+.nav-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-family: var(--mono);
+  color: var(--teal);
+}
+
+.status-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--teal);
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.7); }
+}
+
+/* ─── HERO ──────────────────────────────────────────────────── */
 .hero {
-    background: linear-gradient(135deg, #2563eb, #4f46e5);
-    padding: 90px 20px;
-    text-align: center;
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 40px 80px;
+  text-align: center;
+}
+
+.hero-inner {
+  max-width: 780px;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--teal);
+  background: var(--teal-faint);
+  border: 1px solid rgba(45,212,191,0.2);
+  padding: 6px 14px;
+  border-radius: 100px;
+  margin-bottom: 36px;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--teal);
 }
 
 .hero h1 {
-    font-size: 56px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    letter-spacing: -1px;
+  font-family: var(--sans);
+  font-size: clamp(42px, 7vw, 74px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin-bottom: 28px;
 }
 
-.hero p {
-    max-width: 750px;
-    margin: 0 auto;
-    font-size: 18px;
-    opacity: 0.95;
+.hero h1 em {
+  font-style: normal;
+  color: var(--teal);
 }
 
-/* Container */
+.hero-sub {
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--text-mid);
+  max-width: 600px;
+  margin: 0 auto 52px;
+  line-height: 1.75;
+}
+
+.hero-cta-row {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--void);
+  background: var(--teal);
+  border: none;
+  padding: 13px 28px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background var(--transition), transform var(--transition);
+  letter-spacing: 0.01em;
+}
+
+.btn-primary:hover {
+  background: #3fe8d2;
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-mid);
+  background: transparent;
+  border: 1px solid var(--border);
+  padding: 12px 28px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-decoration: none;
+  transition: color var(--transition), border-color var(--transition), transform var(--transition);
+}
+
+.btn-ghost:hover {
+  color: var(--text);
+  border-color: rgba(255,255,255,0.18);
+  transform: translateY(-1px);
+}
+
+.hero-metrics {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  margin-top: 72px;
+  padding-top: 48px;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.metric {
+  text-align: center;
+}
+
+.metric-value {
+  font-family: var(--sans);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.metric-value span {
+  color: var(--teal);
+}
+
+.metric-label {
+  font-size: 12px;
+  color: var(--text-dim);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* ─── SECTIONS ──────────────────────────────────────────────── */
+section {
+  position: relative;
+  z-index: 1;
+}
+
 .container {
-    max-width: 1000px;
-    margin: 70px auto;
-    padding: 0 20px;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 40px;
 }
 
-/* About Section */
+/* ─── ABOUT ─────────────────────────────────────────────────── */
 .about-section {
-    margin-bottom: 80px;
+  padding: 100px 0;
+  border-top: 1px solid var(--border);
 }
 
-.about-section h2 {
-    text-align: center;
-    font-size: 26px;
-    font-weight: 600;
-    margin-bottom: 35px;
-    color: #60a5fa;
+.section-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 20px;
 }
 
-.about-section p {
-    margin-bottom: 22px;
-    font-size: 16px;
-    color: #cbd5e1;
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 80px;
+  align-items: start;
 }
 
-/* Projects */
-.section-title {
-    text-align: center;
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 40px;
-    color: #60a5fa;
+.about-left h2 {
+  font-family: var(--sans);
+  font-size: clamp(28px, 3.5vw, 40px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  color: var(--text);
+  margin-bottom: 20px;
 }
 
+.about-left h2 em {
+  font-style: normal;
+  color: var(--teal);
+}
+
+.about-left .about-tagline {
+  font-size: 14px;
+  color: var(--text-dim);
+  font-family: var(--mono);
+  letter-spacing: 0.04em;
+}
+
+.about-right p {
+  font-size: 15.5px;
+  color: var(--text-mid);
+  margin-bottom: 20px;
+  line-height: 1.8;
+}
+
+.about-right p:last-child { margin-bottom: 0; }
+
+.capability-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 36px;
+}
+
+.chip {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-mid);
+  background: var(--raised);
+  border: 1px solid var(--border);
+  padding: 5px 12px;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+  transition: color var(--transition), border-color var(--transition), background var(--transition);
+}
+
+.chip:hover {
+  color: var(--teal);
+  border-color: var(--border-hi);
+  background: var(--teal-faint);
+}
+
+/* ─── PROJECTS SECTION ──────────────────────────────────────── */
+.projects-section {
+  padding: 80px 0 120px;
+}
+
+.projects-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 56px;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.projects-header h2 {
+  font-family: var(--sans);
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--text);
+}
+
+.project-count {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-dim);
+  letter-spacing: 0.06em;
+}
+
+/* ─── PROJECT CARDS ─────────────────────────────────────────── */
 .project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
 }
 
 .project-card {
-    background: #1e293b;
-    border-radius: 14px;
-    padding: 28px;
-    transition: all 0.25s ease;
-    border: 1px solid rgba(255,255,255,0.05);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 0;
+  overflow: hidden;
+  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+  cursor: default;
+  position: relative;
 }
 
 .project-card:hover {
-    transform: translateY(-6px);
-    border: 1px solid #60a5fa;
-    box-shadow: 0 10px 25px rgba(96,165,250,0.2);
+  border-color: var(--border-hi);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(45,212,191,0.15), inset 0 1px 0 rgba(45,212,191,0.08);
 }
 
-.project-card h3 {
-    margin-bottom: 12px;
-    font-weight: 600;
-    font-size: 18px;
-    color: #f1f5f9;
+/* Signal waveform canvas at top of card */
+.card-signal {
+  height: 52px;
+  width: 100%;
+  display: block;
+  background: var(--raised);
+  border-bottom: 1px solid var(--border);
+  transition: background var(--transition);
 }
 
-.project-card p {
-    font-size: 15px;
-    color: #cbd5e1;
-    margin-bottom: 18px;
+.project-card:hover .card-signal {
+  background: rgba(17, 24, 39, 0.8);
 }
 
-.project-card a {
-    text-decoration: none;
-    color: #0f172a;
-    background: #60a5fa;
-    padding: 9px 16px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    transition: 0.2s;
+.card-body {
+  padding: 24px 26px 26px;
 }
 
-.project-card a:hover {
-    background: #3b82f6;
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  gap: 12px;
 }
 
-/* Footer */
+.card-category {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal);
+  background: var(--teal-faint);
+  border: 1px solid rgba(45,212,191,0.18);
+  padding: 3px 9px;
+  border-radius: 3px;
+}
+
+.card-complexity {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+
+.complexity-bar {
+  width: 3px;
+  border-radius: 2px;
+  background: var(--border);
+  transition: background var(--transition);
+}
+
+.complexity-bar.active {
+  background: var(--teal-dim);
+}
+
+.project-card:hover .complexity-bar.active {
+  background: var(--teal);
+}
+
+.card-title {
+  font-family: var(--sans);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+
+.card-subtitle {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 14px;
+}
+
+.card-desc {
+  font-size: 14px;
+  color: var(--text-mid);
+  line-height: 1.75;
+  margin-bottom: 22px;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 22px;
+}
+
+.tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-dim);
+  background: var(--raised);
+  border: 1px solid var(--border);
+  padding: 3px 8px;
+  border-radius: 3px;
+  letter-spacing: 0.04em;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+}
+
+.card-link {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--void);
+  background: var(--teal);
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition), transform var(--transition);
+  letter-spacing: 0.01em;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.card-link:hover {
+  background: #3fe8d2;
+  transform: translateY(-1px);
+}
+
+.card-link-arrow {
+  width: 12px;
+  height: 12px;
+  transition: transform var(--transition);
+}
+
+.card-link:hover .card-link-arrow {
+  transform: translate(2px, -2px);
+}
+
+.card-meta {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 0.06em;
+}
+
+/* ─── FOOTER ────────────────────────────────────────────────── */
 footer {
-    text-align: center;
-    padding: 40px 20px;
-    font-size: 14px;
-    color: #94a3b8;
-    border-top: 1px solid rgba(255,255,255,0.06);
-    margin-top: 80px;
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--border);
+  padding: 48px 40px;
+}
+
+.footer-inner {
+  max-width: 1040px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-left {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+}
+
+.footer-left strong {
+  color: var(--text-mid);
+  font-weight: 500;
+}
+
+.footer-tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--teal);
+  letter-spacing: 0.08em;
+}
+
+/* ─── DIVIDER LINE ──────────────────────────────────────────── */
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+}
+
+/* ─── SCROLL ANIMATIONS ─────────────────────────────────────── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── RESPONSIVE ────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .hero { padding: 100px 24px 64px; }
+  .container { padding: 0 24px; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .hero-metrics { gap: 32px; }
+  .projects-header { flex-direction: column; align-items: flex-start; }
+  footer { padding: 36px 24px; }
+}
+
+@media (max-width: 480px) {
+  .project-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 36px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  .fade-up { opacity: 1; transform: none; }
 }
 </style>
 </head>
-
 <body>
 
-<div class="hero">
-    <h1>Ethan LLM Works</h1>
-    <p>
-        A curated portfolio of AI-powered systems, prompt-engineered applications, 
-        and large language model experiments focused on structured reasoning, 
-        automation workflows, and intelligent web development.
+<!-- Neural lattice background -->
+<canvas id="lattice-canvas" aria-hidden="true"></canvas>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">ELW</span>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+  </ul>
+  <div class="nav-status">
+    <div class="status-dot"></div>
+    <span>6 systems active</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">AI Applications Showcase</div>
+    <h1>Ethan<br><em>LLM Works</em></h1>
+    <p class="hero-sub">
+      A curated portfolio of AI-powered systems, prompt-engineered applications, 
+      and large language model experiments focused on structured reasoning, 
+      automation workflows, and intelligent web development.
     </p>
-</div>
-
-<div class="container">
-
-    <!-- ABOUT SECTION -->
-    <div class="about-section">
-        <h2>About</h2>
-
-        <p>
-            <strong>Ethan LLM Works</strong> is a self-directed portfolio project that involves taking my original 
-            programs and transforming them into interactive simulations and computational tools using advanced techniques 
-            in prompt engineering. Every project starts with logic from my previous projects in GitHub that I develop using Python, 
-            Java, or C++, evolving into a full-fledged html web application through AI-assisted pipelines.
-        </p>
-
-        <p>
-            These projects serve as more than visual redesigns, but are a testament to my abilities in bridging conventional 
-            software development with the latest AI innovation. Although the underlying code and algorithms are
-            mine, the web interfaces have been developed through purposeful experimentation with large language models. What I aim to achieve 
-            through this initiative is not the authorship of these websites but to showcase the application of my AI 
-            engineering skills in terms of crafting prompts and refining interfaces.
-        </p>
-
-        <p>
-            This platform is a part of an independent study into the development of LLM products, prototyping, and 
-            computational designs. It is to be taken as a way of learning about AI designs in intuitive and 
-            engaging mannerisms. Through these projects, I hope to learn more about how human-designed logic and machine-assisted generation 
-            can be combined in creating function-oriented digital systems.        
-        </p>
+    <div class="hero-cta-row">
+      <a href="#projects" class="btn-primary">Explore Projects</a>
+      <a href="#about" class="btn-ghost">About This Work</a>
     </div>
+    <div class="hero-metrics">
+      <div class="metric">
+        <div class="metric-value">6<span>+</span></div>
+        <div class="metric-label">Live Systems</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">3<span>+</span></div>
+        <div class="metric-label">Languages</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">LLM<span>×</span></div>
+        <div class="metric-label">Driven Pipeline</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">2026</div>
+        <div class="metric-label">Active Research</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- PROJECTS -->
-    <div class="section-title">
-        Featured Projects
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="container">
+    <div class="about-grid fade-up">
+      <div class="about-left">
+        <div class="section-label">// about</div>
+        <h2>Where Logic Meets <em>Language</em></h2>
+        <p class="about-tagline">Human design × Machine generation</p>
+        <div class="capability-chips" style="margin-top:28px">
+          <span class="chip">Prompt Engineering</span>
+          <span class="chip">Python</span>
+          <span class="chip">Java</span>
+          <span class="chip">C++</span>
+          <span class="chip">LLM Systems</span>
+          <span class="chip">Web Apps</span>
+          <span class="chip">Algorithm Design</span>
+          <span class="chip">AI Pipelines</span>
+        </div>
+      </div>
+      <div class="about-right">
+        <p>
+          <strong style="color:var(--text);font-weight:500;">Ethan LLM Works</strong> is a self-directed portfolio project that involves taking original 
+          programs and transforming them into interactive simulations and computational tools using advanced techniques 
+          in prompt engineering. Every project starts with logic developed in Python, Java, or C++, 
+          evolving into a full-fledged web application through AI-assisted pipelines.
+        </p>
+        <p>
+          These projects serve as more than visual redesigns — they are a testament to bridging conventional 
+          software development with the latest AI innovation. Although the underlying code and algorithms are 
+          original, the web interfaces have been developed through purposeful experimentation with large language models. 
+          The goal is not authorship of these websites, but to showcase the application of AI engineering skills 
+          in crafting prompts and refining interfaces.
+        </p>
+        <p>
+          This platform is a part of an independent study into the development of LLM products, prototyping, and 
+          computational design — exploring how human-designed logic and machine-assisted generation can be combined 
+          to create function-oriented digital systems.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects-section" id="projects">
+  <div class="container">
+    <div class="projects-header fade-up">
+      <div>
+        <div class="section-label">// featured projects</div>
+        <h2>Systems &amp; Experiments</h2>
+      </div>
+      <div class="project-count">0x01 — 0x06</div>
     </div>
 
     <div class="project-grid">
 
-        <div class="project-card">
-            <h3>Wordlytics</h3>
-            <p>Word Frequency Counter</p>
-            <p>
-                Reads .txt files, cleans and processes text, and uses dictionaries to calculate and output sorted word frequencies for basic text analysis.            </p>
-            <a href="https://etceo.github.io/.wRdLtcs/" target="_blank">View Project</a>
+      <!-- Card 1 -->
+      <article class="project-card fade-up">
+        <canvas class="card-signal" data-freq="0.012" data-amp="14" data-speed="0.7" aria-hidden="true"></canvas>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-category">NLP / Text</span>
+            <div class="card-complexity" title="Complexity: 2/5">
+              <div class="complexity-bar active" style="height:8px"></div>
+              <div class="complexity-bar active" style="height:11px"></div>
+              <div class="complexity-bar" style="height:14px"></div>
+              <div class="complexity-bar" style="height:17px"></div>
+              <div class="complexity-bar" style="height:20px"></div>
+            </div>
+          </div>
+          <h3 class="card-title">Wordlytics</h3>
+          <div class="card-subtitle">Word Frequency Counter</div>
+          <p class="card-desc">
+            Reads .txt files, cleans and processes text, and uses dictionaries to calculate and output sorted word frequencies for basic text analysis.
+          </p>
+          <div class="card-tags">
+            <span class="tag">dict-structures</span>
+            <span class="tag">text-parsing</span>
+            <span class="tag">frequency-sort</span>
+          </div>
+          <div class="card-footer">
+            <a href="https://etceo.github.io/.wRdLtcs/" target="_blank" rel="noopener" class="card-link">
+              Launch
+              <svg class="card-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <span class="card-meta">sys_01</span>
+          </div>
         </div>
+      </article>
 
-        <div class="project-card">
-            <h3>Stat Integra</h3>
-            <p>Integer Statistics Calculator</p>
-            <p>
-                Accepts a sequence of positive integers and computes key statistical measures, including algorithmic sorting, mean, and standard deviation.            </p>
-            <a href="https://etceo.github.io/.stAtIntgra/" target="_blank">View Project</a>
+      <!-- Card 2 -->
+      <article class="project-card fade-up">
+        <canvas class="card-signal" data-freq="0.018" data-amp="11" data-speed="0.5" aria-hidden="true"></canvas>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-category">Statistics</span>
+            <div class="card-complexity" title="Complexity: 3/5">
+              <div class="complexity-bar active" style="height:8px"></div>
+              <div class="complexity-bar active" style="height:11px"></div>
+              <div class="complexity-bar active" style="height:14px"></div>
+              <div class="complexity-bar" style="height:17px"></div>
+              <div class="complexity-bar" style="height:20px"></div>
+            </div>
+          </div>
+          <h3 class="card-title">Stat Integra</h3>
+          <div class="card-subtitle">Integer Statistics Calculator</div>
+          <p class="card-desc">
+            Accepts a sequence of positive integers and computes key statistical measures, including algorithmic sorting, mean, and standard deviation.
+          </p>
+          <div class="card-tags">
+            <span class="tag">statistics</span>
+            <span class="tag">sorting-algo</span>
+            <span class="tag">std-deviation</span>
+          </div>
+          <div class="card-footer">
+            <a href="https://etceo.github.io/.stAtIntgra/" target="_blank" rel="noopener" class="card-link">
+              Launch
+              <svg class="card-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <span class="card-meta">sys_02</span>
+          </div>
         </div>
+      </article>
 
-        <div class="project-card">
-            <h3>Second Sync</h3>
-            <p>Seconds To Time Converter</p>
-            <p>
-                Converts a user-provided number of seconds into hours, minutes, and seconds using integer division and modulo operations.            </p>
-            <a href="https://etceo.github.io/.sCndSnc/" target="_blank">View Project</a>
+      <!-- Card 3 -->
+      <article class="project-card fade-up">
+        <canvas class="card-signal" data-freq="0.022" data-amp="9" data-speed="0.9" aria-hidden="true"></canvas>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-category">Conversion</span>
+            <div class="card-complexity" title="Complexity: 1/5">
+              <div class="complexity-bar active" style="height:8px"></div>
+              <div class="complexity-bar" style="height:11px"></div>
+              <div class="complexity-bar" style="height:14px"></div>
+              <div class="complexity-bar" style="height:17px"></div>
+              <div class="complexity-bar" style="height:20px"></div>
+            </div>
+          </div>
+          <h3 class="card-title">Second Sync</h3>
+          <div class="card-subtitle">Seconds To Time Converter</div>
+          <p class="card-desc">
+            Converts a user-provided number of seconds into hours, minutes, and seconds using integer division and modulo operations.
+          </p>
+          <div class="card-tags">
+            <span class="tag">integer-division</span>
+            <span class="tag">modulo</span>
+            <span class="tag">time-ops</span>
+          </div>
+          <div class="card-footer">
+            <a href="https://etceo.github.io/.sCndSnc/" target="_blank" rel="noopener" class="card-link">
+              Launch
+              <svg class="card-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <span class="card-meta">sys_03</span>
+          </div>
         </div>
+      </article>
 
-        <div class="project-card">
-            <h3>Squeal Speak</h3>
-            <p>Pig Latin Translator</p>
-            <p>
-                Translates words, names, and full sentences into Pig Latin while preserving original capitalization and punctuation.            </p>
-            <a href="https://etceo.github.io/.sQlsPk/" target="_blank">View Project</a>
+      <!-- Card 4 -->
+      <article class="project-card fade-up">
+        <canvas class="card-signal" data-freq="0.009" data-amp="16" data-speed="0.6" aria-hidden="true"></canvas>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-category">NLP / Lang</span>
+            <div class="card-complexity" title="Complexity: 2/5">
+              <div class="complexity-bar active" style="height:8px"></div>
+              <div class="complexity-bar active" style="height:11px"></div>
+              <div class="complexity-bar" style="height:14px"></div>
+              <div class="complexity-bar" style="height:17px"></div>
+              <div class="complexity-bar" style="height:20px"></div>
+            </div>
+          </div>
+          <h3 class="card-title">Squeal Speak</h3>
+          <div class="card-subtitle">Pig Latin Translator</div>
+          <p class="card-desc">
+            Translates words, names, and full sentences into Pig Latin while preserving original capitalization and punctuation.
+          </p>
+          <div class="card-tags">
+            <span class="tag">string-manipulation</span>
+            <span class="tag">capitalization</span>
+            <span class="tag">rule-engine</span>
+          </div>
+          <div class="card-footer">
+            <a href="https://etceo.github.io/.sQlsPk/" target="_blank" rel="noopener" class="card-link">
+              Launch
+              <svg class="card-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <span class="card-meta">sys_04</span>
+          </div>
         </div>
+      </article>
 
-        <div class="project-card">
-            <h3>Helix Pair</h3>
-            <p>DNA Complement Calculator</p>
-            <p>
-                Calculates the complement and reverse complement of DNA sequences using standard base-pairing rules, bioinformatics logic, and string manipulation.            </p>
-            <a href="https://etceo.github.io/.hLxpR/" target="_blank">View Project</a>
+      <!-- Card 5 -->
+      <article class="project-card fade-up">
+        <canvas class="card-signal" data-freq="0.014" data-amp="13" data-speed="0.4" aria-hidden="true"></canvas>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-category">Bioinformatics</span>
+            <div class="card-complexity" title="Complexity: 4/5">
+              <div class="complexity-bar active" style="height:8px"></div>
+              <div class="complexity-bar active" style="height:11px"></div>
+              <div class="complexity-bar active" style="height:14px"></div>
+              <div class="complexity-bar active" style="height:17px"></div>
+              <div class="complexity-bar" style="height:20px"></div>
+            </div>
+          </div>
+          <h3 class="card-title">Helix Pair</h3>
+          <div class="card-subtitle">DNA Complement Calculator</div>
+          <p class="card-desc">
+            Calculates the complement and reverse complement of DNA sequences using standard base-pairing rules, bioinformatics logic, and string manipulation.
+          </p>
+          <div class="card-tags">
+            <span class="tag">bioinformatics</span>
+            <span class="tag">base-pairing</span>
+            <span class="tag">sequence-ops</span>
+          </div>
+          <div class="card-footer">
+            <a href="https://etceo.github.io/.hLxpR/" target="_blank" rel="noopener" class="card-link">
+              Launch
+              <svg class="card-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <span class="card-meta">sys_05</span>
+          </div>
         </div>
+      </article>
 
-        <div class="project-card">
-            <h3>TempSwitch</h3>
-            <p>Celcius To Fahrenheit Converter</p>
-            <p>
-                Converts temperatures from Celsius to Fahrenheit using the standard formula and practical scripting for scientific calculations.            </p>
-            <a href="https://etceo.github.io/.tMpSwtcH/" target="_blank">View Project</a>
+      <!-- Card 6 -->
+      <article class="project-card fade-up">
+        <canvas class="card-signal" data-freq="0.016" data-amp="10" data-speed="0.8" aria-hidden="true"></canvas>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-category">Scientific</span>
+            <div class="card-complexity" title="Complexity: 1/5">
+              <div class="complexity-bar active" style="height:8px"></div>
+              <div class="complexity-bar" style="height:11px"></div>
+              <div class="complexity-bar" style="height:14px"></div>
+              <div class="complexity-bar" style="height:17px"></div>
+              <div class="complexity-bar" style="height:20px"></div>
+            </div>
+          </div>
+          <h3 class="card-title">TempSwitch</h3>
+          <div class="card-subtitle">Celsius To Fahrenheit Converter</div>
+          <p class="card-desc">
+            Converts temperatures from Celsius to Fahrenheit using the standard formula and practical scripting for scientific calculations.
+          </p>
+          <div class="card-tags">
+            <span class="tag">formula-calc</span>
+            <span class="tag">float-precision</span>
+            <span class="tag">scientific-ops</span>
+          </div>
+          <div class="card-footer">
+            <a href="https://etceo.github.io/.tMpSwtcH/" target="_blank" rel="noopener" class="card-link">
+              Launch
+              <svg class="card-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <span class="card-meta">sys_06</span>
+          </div>
         </div>
-        
+      </article>
+
     </div>
+  </div>
+</section>
 
-</div>
-
+<!-- FOOTER -->
 <footer>
-    © 2026 Ethan Lopez | LLM Systems Portfolio
+  <div class="footer-inner">
+    <div class="footer-left">
+      &copy; 2026 <strong>Ethan Lopez</strong> &nbsp;·&nbsp; LLM Systems Portfolio
+    </div>
+    <div class="footer-tag">// human logic × machine generation</div>
+  </div>
 </footer>
 
+<script>
+/* ─── NEURAL LATTICE BACKGROUND ─────────────────────────────── */
+(function() {
+  const canvas = document.getElementById('lattice-canvas');
+  const ctx = canvas.getContext('2d');
+  let nodes = [], animFrame, W, H;
+  const TEAL = '45,212,191';
+  const NODE_COUNT = 52;
+  const MAX_DIST = 160;
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function initNodes() {
+    nodes = [];
+    for (let i = 0; i < NODE_COUNT; i++) {
+      nodes.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.25,
+        vy: (Math.random() - 0.5) * 0.25,
+        r: Math.random() * 1.5 + 0.5
+      });
+    }
+  }
+
+  function draw(t) {
+    ctx.clearRect(0, 0, W, H);
+    nodes.forEach(n => {
+      n.x += n.vx;
+      n.y += n.vy;
+      if (n.x < -30) n.x = W + 30;
+      if (n.x > W + 30) n.x = -30;
+      if (n.y < -30) n.y = H + 30;
+      if (n.y > H + 30) n.y = -30;
+    });
+
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const a = nodes[i], b = nodes[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < MAX_DIST) {
+          const alpha = (1 - dist / MAX_DIST) * 0.35;
+          ctx.strokeStyle = `rgba(${TEAL},${alpha})`;
+          ctx.lineWidth = 0.6;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    nodes.forEach(n => {
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${TEAL},0.5)`;
+      ctx.fill();
+    });
+
+    animFrame = requestAnimationFrame(draw);
+  }
+
+  resize();
+  initNodes();
+  draw(0);
+  window.addEventListener('resize', () => { resize(); });
+})();
+
+/* ─── CARD SIGNAL WAVEFORMS ─────────────────────────────────── */
+(function() {
+  const TEAL = '45,212,191';
+
+  function initSignal(canvas) {
+    const ctx = canvas.getContext('2d');
+    const freq = parseFloat(canvas.dataset.freq) || 0.015;
+    const amp = parseFloat(canvas.dataset.amp) || 12;
+    const speed = parseFloat(canvas.dataset.speed) || 0.6;
+    const card = canvas.closest('.project-card');
+    let offset = Math.random() * 100;
+    let hovered = false;
+    let raf;
+
+    card.addEventListener('mouseenter', () => { hovered = true; });
+    card.addEventListener('mouseleave', () => { hovered = false; });
+
+    function draw() {
+      const W = canvas.width = canvas.offsetWidth;
+      const H = canvas.height = canvas.offsetHeight;
+      ctx.clearRect(0, 0, W, H);
+      offset += hovered ? speed * 1.8 : speed * 0.5;
+
+      const midY = H / 2;
+      const currentAmp = hovered ? amp * 1.5 : amp;
+      const alpha = hovered ? 0.7 : 0.35;
+
+      ctx.beginPath();
+      ctx.moveTo(0, midY);
+
+      for (let x = 0; x <= W; x += 2) {
+        const progress = x / W;
+        const y = midY + Math.sin((x * freq) + offset) * currentAmp
+                       + Math.sin((x * freq * 2.3) + offset * 0.7) * (currentAmp * 0.3);
+        ctx.lineTo(x, y);
+      }
+
+      const grad = ctx.createLinearGradient(0, 0, W, 0);
+      grad.addColorStop(0, `rgba(${TEAL},0)`);
+      grad.addColorStop(0.15, `rgba(${TEAL},${alpha})`);
+      grad.addColorStop(0.85, `rgba(${TEAL},${alpha})`);
+      grad.addColorStop(1, `rgba(${TEAL},0)`);
+
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = hovered ? 1.5 : 1;
+      ctx.stroke();
+
+      raf = requestAnimationFrame(draw);
+    }
+
+    draw();
+  }
+
+  document.querySelectorAll('.card-signal').forEach(c => initSignal(c));
+})();
+
+/* ─── SCROLL FADE-IN ────────────────────────────────────────── */
+(function() {
+  const els = document.querySelectorAll('.fade-up');
+  const cards = document.querySelectorAll('.project-card.fade-up');
+
+  /* stagger cards */
+  cards.forEach((card, i) => {
+    card.style.transitionDelay = `${i * 0.06}s`;
+  });
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  els.forEach(el => obs.observe(el));
+})();
+</script>
 </body>
 </html>
